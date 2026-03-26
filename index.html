@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q'SHOW – Trilhas Inesquecíveis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@300;400;600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #d4af37; --gold-light: #f1d592; --dark-bg: #080808;
+            --card-bg: #151515; --text: #f0f0f0; --accent: #e74c3c;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { background-color: var(--dark-bg); color: var(--text); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+
+        /* HEADER LUXO */
+        header {
+            background: linear-gradient(to bottom, #000, transparent), url('https://images.unsplash.com/photo-1514525253361-bee8a4874a13?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover; background-position: center; padding: 100px 20px; text-align: center; border-bottom: 2px solid var(--gold);
+        }
+        .logo-box h1 { font-family: 'Playfair Display', serif; font-size: 5rem; color: var(--gold); text-transform: uppercase; letter-spacing: 8px; text-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
+        .slogan { font-size: 1.2rem; letter-spacing: 5px; font-weight: 300; color: #fff; text-transform: uppercase; margin-top: 10px; }
+
+        /* PLAYER E NAV */
+        .sticky-header { position: sticky; top: 0; z-index: 1000; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #333; }
+        .qshow-player { padding: 15px; display: flex; justify-content: center; align-items: center; gap: 20px; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        nav { display: flex; justify-content: center; gap: 15px; padding: 15px; flex-wrap: wrap; }
+        nav a { color: var(--gold); text-decoration: none; border: 1px solid var(--gold); padding: 6px 18px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; transition: 0.3s; }
+        nav a:hover { background: var(--gold); color: #000; box-shadow: 0 0 15px var(--gold); }
+
+        /* CONTEÚDO */
+        .container { max-width: 1200px; margin: 60px auto; padding: 0 20px; }
+        .decade-section { margin-bottom: 100px; }
+        .decade-title { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--gold); margin-bottom: 40px; text-align: center; font-style: italic; }
+        
+        .trilha-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 40px; }
+        .trilha-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid #222; transition: 0.4s; position: relative; }
+        .trilha-card:hover { transform: translateY(-15px); border-color: var(--gold); box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
+        
+        .card-img { height: 220px; background-size: cover; background-position: center; position: relative; }
+        .card-img::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(to top, var(--card-bg), transparent); }
+        
+        .tag { position: absolute; top: 15px; right: 15px; background: var(--accent); color: white; padding: 4px 12px; border-radius: 4px; font-size: 0.65rem; font-weight: 900; z-index: 2; }
+        
+        .card-body { padding: 30px; }
+        .card-body h3 { font-family: 'Playfair Display', serif; color: var(--gold-light); font-size: 1.6rem; margin-bottom: 12px; }
+        .card-body p { font-size: 0.9rem; line-height: 1.7; color: #bbb; margin-bottom: 25px; min-height: 80px; }
+        
+        .btn-play { display: flex; align-items: center; justify-content: center; gap: 10px; background: transparent; border: 2px solid var(--gold); color: var(--gold); text-decoration: none; padding: 12px; border-radius: 6px; font-weight: bold; font-size: 0.8rem; transition: 0.3s; }
+        .btn-play:hover { background: var(--gold); color: #000; }
+
+        /* FOOTER */
+        footer { background: #000; padding: 80px 20px; text-align: center; border-top: 2px solid var(--gold); }
+        .social-icons { margin: 30px 0; font-size: 2rem; }
+        .social-icons a { color: var(--gold); margin: 0 20px; transition: 0.3s; }
+        .social-icons a:hover { color: #fff; transform: scale(1.2); }
+
+        @media (max-width: 768px) { .logo-box h1 { font-size: 3rem; } .decade-title { font-size: 2rem; } }
+    </style>
+</head>
+<body>
+
+<header id="inicio">
+    <div class="logo-box">
+        <h1>Q'SHOW</h1>
+        <p class="slogan">Trilhas Inesquecíveis</p>
+    </div>
+</header>
+
+<div class="sticky-header">
+    <div class="qshow-player">
+        <i class="fas fa-satellite-dish" style="color:var(--gold); animation: pulse 2s infinite;"></i>
+        <span style="font-weight: bold; font-size: 0.8rem; letter-spacing: 2px;">WEB RÁDIO Q'SHOW AO VIVO</span>
+        <audio controls style="height: 30px;">
+            <source src="https://hts09.brascast.com:7988/live" type="audio/mpeg">
+        </audio>
+    </div>
+    <nav>
+        <a href="#anos60">ANOS 60</a> <a href="#anos70">ANOS 70</a> <a href="#anos80">ANOS 80</a> <a href="#anos90">ANOS 90</a> <a href="#anos00">ANOS 2000</a>
+    </nav>
+</div>
+
+<main class="container">
+
+    <section id="anos60" class="decade-section">
+        <h2 class="decade-title">Os Elegantes Anos 60</h2>
+        <div class="trilha-grid">
+            <div class="trilha-card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1459749411177-042180ce673c?w=500')">
+                    <span class="tag">FILME</span>
+                </div>
+                <div class="card-body">
+                    <h3>Moon River</h3>
+                    <p>A voz de Audrey Hepburn em 'Bonequinha de Luxo'. Uma melodia doce que se tornou o símbolo máximo do romance clássico.</p>
+                    <a href="https://www.youtube.com/results?search_query=moon+river+audrey+hepburn+original" target="_blank" class="btn-play"><i class="fab fa-youtube"></i> OUVIR CLÁSSICO</a>
+                </div>
+            </div>
+            <div class="trilha-card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=500')">
+                    <span class="tag">MÚSICA</span>
+                </div>
+                <div class="card-body">
+                    <h3>Unchained Melody</h3>
+                    <p>The Righteous Brothers entregaram a canção que pararia o tempo. Impossível não associar ao romance eterno de 'Ghost'.</p>
+                    <a href="https://www.youtube.com/results?search_query=unchained+melody+righteous+brothers" target="_blank" class="btn-play"><i class="fab fa-youtube"></i> OUVIR EMOÇÃO</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="anos70" class="decade-section">
+        <h2 class="decade-title">Os Intensos Anos 70</h2>
+        <div class="trilha-grid">
+            <div class="trilha-card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500')">
+                    <span class="tag">FILME</span>
+                </div>
+                <div class="card-body">
+                    <h3>Stayin' Alive</h3>
+                    <p>Bee Gees e o brilho das discotecas em 'Os Embalos de Sábado à Noite'. A batida que mudou o ritmo de uma década inteira.</p>
+                    <a href="https://www.youtube.com/results?search_query=bee+gees+stayin+alive+official+video" target="_blank" class="btn-play"><i class="fab fa-youtube"></i> VER NO YOUTUBE</a>
+                </div>
+            </div>
+            <div class="trilha-card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=500')">
+                    <span class="tag">NOVELA</span>
+                </div>
+                <div class="card-body">
+                    <h3>How Deep Is Your Love</h3>
+                    <p>Outro sucesso dos Bee Gees que embalou casais em diversas novelas brasileiras de época. Romantismo puro.</p>
+                    <a href="https://www.youtube.com/results?search_query=bee+gees+how+deep+is+your+love" target="_blank" class="btn-play"><i class="fab fa-youtube"></i> OUVIR ROMANCE</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="anos80" class="decade-section">
+        <h2 class="decade-title">Os Mágicos Anos 80</h2>
+        <div class="trilha-grid">
+            <div class="trilha-card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1520038410233-7141be7e6f97?w=500')">
+                    <span class="tag">FILME</span>
+                </div>
+                <div class="card-body">
+                    <h3>Take My Breath Away</h3>
+                    <p>Berlin e o romance nas alturas de 'Top Gun'. O hino de 1986 que ainda faz suspirar qualquer ouvinte apaixonado.</p>
+                    <a href="https://www.youtube.com/results?search_query=berlin+take+my+breath+away" target="_blank" class="btn-play"><i class="fab fa-youtube"></i> OUVIR NO YOUTUBE</a>
+                </div>
+            </div>
+            <div class="trilha-card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1593784991095-a205029471b6?w=500')">
+                    <span class="tag">NOVELA</span>
+                </div>
+                <div class="card-body">
+                    <h3>The Winner Takes It All</h3>
+                    <p>ABBA e sua melodia melancólica que coroou momentos decisivos em 'Dancin' Days' e outras grandes tramas.</p>
+                    <a href="https://www.youtube.com/results?search_query=abba+the+winner+takes+it+all" target="_blank" class="btn-play"><i class="fab fa-youtube"></i> OUVIR ABBA</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="anos90" class="decade-section">
+        <h2 class="decade-title">A Emoção dos Anos 90</h2>
+        <div class="trilha-grid">
+            <div class="trilha-card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500')">
+                    <span class="tag">ROMANCE</span>
+                </div>
+                <div class="card-body">
+                    <h3>I Will Always Love You</h3>
+                    <p>Whitney Houston transformou esta canção de Dolly Parton em um marco global no filme 'O Guarda-Costas'.</p>
+                    <a href="https://www.youtube.com/results?search_query=whitney+houston+i+will+always+love+you" target="_blank" class="btn-play"><i class="fab fa-youtube"></i> OUVIR DIVA</a>
+                </div>
+            </div>
+            <div class="trilha-card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=500')">
+                    <span class="tag">NOVELA</span>
+                </div>
+                <div class="card-body">
+                    <h3>Per Amore</h3>
+                    <p>Zizi Possi emocionou o Brasil como tema da novela 'Por Amor'. Uma interpretação arrebatadora que marcou gerações.</p>
+                    <a href="https://www.youtube.com/results?search_query=zizi+possi+per+amore" target="_blank" class="btn-play"><i class="fab fa-youtube"></i> OUVIR NO YOUTUBE</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="anos00" class="decade-section">
+        <h2 class="decade-title">O Pop dos Anos 2000</h2>
+        <div class="trilha-grid">
+            <div class="trilha-card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=500')">
+                    <span class="tag">ROMANCE</span>
+                </div>
+                <div class="card-body">
+                    <h3>Halo</h3>
+                    <p>Beyoncé trouxe força e vulnerabilidade nesta balada que dominou as rádios e as trilhas românticas de todo o mundo.</p>
+                    <a href="https://www.youtube.com/results?search_query=beyonce+halo+official+video" target="_blank" class="btn-play"><i class="fab fa-youtube"></i> VER NO YOUTUBE</a>
+                </div>
+            </div>
+            <div class="trilha-card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1598387181032-a3103a2db5b3?w=500')">
+                    <span class="tag">NOVELA</span>
+                </div>
+                <div class="card-body">
+                    <h3>Love by Grace</h3>
+                    <p>Lara Fabian embalou o momento mais emocionante da novela 'Laços de Família', parando o Brasil diante da TV.</p>
+                    <a href="https://www.youtube.com/results?search_query=lara+fabian+love+by+grace" target="_blank" class="btn-play"><i class="fab fa-youtube"></i> OUVIR EMOÇÃO</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="logo-box">
+        <h2 style="color:var(--gold); font-family:'Playfair Display'; font-size: 2.5rem;">Q'SHOW</h2>
+        <p style="color:#666; letter-spacing: 3px;">ENTERTAINMENT</p>
+    </div>
+    
+    <div class="social-icons">
+        <a href="https://www.instagram.com/qshowweb?igsh=MXZoN3p2bnlxeDVjbg==" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://m.youtube.com/@qshowweb" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="mailto:contato@qshow.com.br"><i class="fas fa-envelope"></i></a>
+    </div>
+
+    <p style="color: #444; font-size: 0.8rem; margin-top: 30px;">
+        &copy; 2026 Q'SHOW – Todos os direitos reservados. <br>
+        Curadoria de Trilhas Inesquecíveis para o seu coração.
+    </p>
+</footer>
+
+</body>
+</html>
