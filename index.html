@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q'SHOW | Trilhas Sonoras</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --azul: #007bff; --verde: #32cd32; --roxo: #8a2be2; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        
+        body { 
+            /* AQUI ENTRA A SUA IMAGEM DE FUNDO */
+            background: url('1000188429.png') no-repeat center center fixed; 
+            background-size: cover;
+            color: white; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        /* Camada escura para dar contraste à imagem de fundo */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+
+        header { 
+            padding: 20px; 
+            background: rgba(0, 0, 0, 0.8); 
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            text-align: center; 
+        }
+
+        .logo-qshow { 
+            font-size: 2.8rem; 
+            font-weight: 900; 
+            background: linear-gradient(to right, var(--azul), var(--verde), var(--roxo)); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            letter-spacing: -2px; 
+            text-transform: uppercase; 
+        }
+        
+        .main-content { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+        
+        .card-dia { 
+            width: 100%; 
+            max-width: 400px; 
+            height: 520px; 
+            border-radius: 35px; 
+            position: relative; 
+            overflow: hidden; 
+            border: 1px solid rgba(255,255,255,0.2); 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-end; 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px); /* Efeito de vidro luxuoso */
+        }
+
+        .watermark {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            font-size: 6rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.07);
+            white-space: nowrap;
+            user-select: none;
+            z-index: 1;
+        }
+        
+        .card-info { padding: 40px 30px; background: linear-gradient(0deg, rgba(0,0,0,1) 60%, transparent 100%); z-index: 2; text-align: center; }
+        .card-info h2 { font-size: 2.2rem; margin-bottom: 10px; font-weight: 800; line-height: 1.1; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .card-info p { color: var(--verde); font-size: 1.2rem; margin-bottom: 30px; font-style: italic; font-weight: 600; }
+        
+        .btn-play { background: #ff0000; color: white; text-decoration: none; padding: 20px; border-radius: 18px; font-weight: bold; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 12px; transition: 0.3s; position: relative; z-index: 3; box-shadow: 0 10px 20px rgba(255,0,0,0.3); }
+        .btn-play:hover { background: #cc0000; transform: scale(1.03); }
+        
+        footer { padding: 20px; text-align: center; color: #bbb; font-size: 0.8rem; background: rgba(0,0,0,0.8); }
+    </style>
+</head>
+<body>
+    <header><div class="logo-qshow">Q'SHOW</div></header>
+
+    <main class="main-content">
+        <div id="cardLocal"></div>
+    </main>
+
+    <footer>Q'SHOW © 2026 - O Filme e a Música da sua Vida.</footer>
+
+    <script>
+        // LISTA DE 150 FILMES (MANUTENÇÃO DO CARROSSEL DIÁRIO)
+        const trilhas = [
+            { f: "Titanic", m: "My Heart Will Go On" }, { f: "Gladiador", m: "Now We Are Free" },
+            { f: "O Rei Leão", m: "Circle of Life" }, { f: "Top Gun", m: "Take My Breath Away" },
+            { f: "Nasce uma Estrela", m: "Shallow" }, { f: "Rocky IV", m: "Eye of the Tiger" },
+            { f: "Ghost", m: "Unchained Melody" }, { f: "Dirty Dancing", m: "The Time of My Life" },
+            { f: "O Guarda-Costas", m: "I Will Always Love You" }, { f: "Flashdance", m: "What a Feeling" },
+            { f: "De Volta para o Futuro", m: "The Power of Love" }, { f: "Pretty Woman", m: "Oh, Pretty Woman" },
+            { f: "Star Wars", m: "Imperial March" }, { f: "Grease", m: "You're The One That I Want" },
+            { f: "Armageddon", m: "I Don't Want to Miss a Thing" }, { f: "Pulp Fiction", m: "Misirlou" },
+            { f: "Coração Valente", m: "Main Theme" }, { f: "Cinema Paradiso", m: "Love Theme" },
+            { f: "O Poderoso Chefão", m: "Speak Softly Love" }, { f: "Indiana Jones", m: "Raiders March" },
+            { f: "Jurassic Park", m: "Theme Song" }, { f: "Missão Impossível", m: "Main Theme" },
+            { f: "E.T. O Extraterrestre", m: "Flying Theme" }, { f: "007 Skyfall", m: "Skyfall" },
+            { f: "Cidade de Deus", m: "Convite para Vida" }, { f: "Tropa de Elite", m: "Tema Original" },
+            { f: "Amélie Poulain", m: "La Valse d'Amélie" }, { f: "A Lista de Schindler", m: "Main Theme" },
+            { f: "Exterminador do Futuro", m: "Main Theme" }, { f: "Footloose", m: "Footloose" },
+            { f: "Karate Kid", m: "You're the Best" }, { f: "Breakfast at Tiffany's", m: "Moon River" },
+            { f: "A Noviça Rebelde", m: "The Sound of Music" }, { f: "Cantando na Chuva", m: "Singin' in the Rain" },
+            { f: "O Mágico de Oz", m: "Over the Rainbow" }, { f: "Clube dos Cinco", m: "Don't You Forget About Me" },
+            { f: "Sociedade Poetas Mortos", m: "Carpe Diem Theme" }, { f: "Um Sonho de Liberdade", m: "Sull'aria" },
+            { f: "Forest Gump", m: "Main Title" }, { f: "Blade Runner", m: "Love Theme" },
+            { f: "Interestelar", m: "Cornfield Chase" }, { f: "Inception", m: "Time" },
+            { f: "Batman Dark Knight", m: "Main Theme" }, { f: "Piratas do Caribe", m: "He's a Pirate" },
+            { f: "Aladdin", m: "A Whole New World" }, { f: "A Bela e a Fera", m: "Beauty and the Beast" },
+            { f: "Up! Altas Aventuras", m: "Married Life" }, { f: "Toy Story", m: "You've Got a Friend in Me" },
+            { f: "Rocky", m: "Gonna Fly Now" }, { f: "Harry Potter", m: "Hedwig's Theme" },
+            { f: "Senhor dos Anéis", m: "The Shire Theme" }, { f: "Psicose", m: "The Murder" },
+            { f: "Tubarao", m: "Main Title" }, { f: "Halloween", m: "Main Theme" },
+            { f: "O Exorcista", m: "Tubular Bells" }, { f: "Notting Hill", m: "She" },
+            { f: "Cidade dos Anjos", m: "Iris" }, { f: "Moulin Rouge", m: "Your Song" },
+            { f: "Bohemian Rhapsody", m: "Live Aid Concert" }, { f: "As Branquelas", m: "A Thousand Miles" },
+            { f: "Shrek 2", m: "I Need a Hero" }, { f: "Velozes e Furiosos 7", m: "See You Again" },
+            { f: "Mamma Mia!", m: "Dancing Queen" }, { f: "Barbie", m: "Dance The Night" },
+            { f: "Coringa", m: "Rock and Roll Part 2" }, { f: "Kill Bill", m: "Battle Without Honor" },
+            { f: "Matrix", m: "Clubbed to Death" }, { f: "500 Dias com Ela", m: "You Make My Dreams" },
+            { f: "O Auto da Compadecida", m: "Tema de Chicó" }, { f: "Sempre ao Seu Lado", m: "Goodbye" },
+            { f: "Diabo Veste Prada", m: "Suddenly I See" }, { f: "Curtindo a Vida Adoidado", m: "Twist and Shout" },
+            { f: "Whiplash", m: "Caravan" }, { f: "Cães de Aluguel", m: "Stuck in the Middle" },
+            { f: "Django Livre", m: "Unchained" }, { f: "Central do Brasil", m: "Tema de Dora" },
+            { f: "Dona Flor e seus 2 Maridos", m: "O Que Será" }, { f: "Orfeu Negro", m: "Manhã de Carnaval" },
+            { f: "Cinderela", m: "A Dream Is a Wish" }, { f: "Branca de Neve", m: "Some Day My Prince" },
+            { f: "Pinóquio", m: "When You Wish Upon a Star" }, { f: "O Corcunda de Notre Dame", m: "Out There" },
+            { f: "Mulan", m: "Reflection" }, { f: "Tarzan", m: "You'll Be In My Heart" },
+            { f: "Hércules", m: "Go The Distance" }, { f: "Pocahontas", m: "Colors Of The Wind" },
+            { f: "A Pequena Sereia", m: "Under The Sea" }, { f: "Frozen 2", m: "Into the Unknown" },
+            { f: "Rei Leão 2", m: "He Lives In You" }, { f: "Lilo & Stitch", m: "Hawaiian Roller Coaster" },
+            { f: "Coco: A Vida é uma Festa", m: "Remember Me" }, { f: "Valente", m: "Touch the Sky" },
+            { f: "Bolt: Supercão", m: "I Thought I Lost You" }, { f: "Enrolados", m: "I See the Light" },
+            { f: "Ratatouille", m: "Le Festin" }, { f: "Monstros S.A.", m: "If I Didn't Have You" },
+            { f: "Carros", m: "Life is a Highway" }, { f: "Os Incríveis", m: "Main Theme" },
+            { f: "Wall-E", m: "Put On Your Sunday Clothes" }, { f: "Procurando Nemo", m: "Beyond the Sea" },
+            { f: "Divertida Mente", m: "Bundle of Joy" }, { f: "Soul", m: "It's All Right" },
+            { f: "Espetacular Homem-Aranha", m: "Gone, Gone, Gone" }, { f: "Homem de Ferro 2", m: "Shoot to Thrill" },
+            { f: "Capitão América", m: "Star Spangled Man" }, { f: "Vingadores: Ultimato", m: "Portals" },
+            { f: "Guardiões Galáxia 2", m: "Mr. Blue Sky" }, { f: "Thor: Ragnarok", m: "Immigrant Song" },
+            { f: "Doutor Estranho", m: "Master of the Mystic" }, { f: "Homem-Aranha 2", m: "Vindicated" },
+            { f: "Batman (1989)", m: "Batdance" }, { f: "Batman Begins", m: "Molossus" },
+            { f: "Coringa (2019)", m: "Smile" }, { f: "Esquadrão Suicida", m: "Heathens" },
+            { f: "O Maskara", m: "Cuban Pete" }, { f: "Ace Ventura", m: "The Lion Sleeps Tonight" },
+            { f: "O Mentiroso", m: "I'm a Believer" }, { f: "Débi & Lóide", m: "The Rain, The Park" },
+            { f: "O Grinch", m: "You're a Mean One" }, { f: "Todo Mundo em Pânico", m: "The Real Slim Shady" },
+            { f: "American Pie 2", m: "Everytime I Look For You" }, { f: "Eurotrip", m: "Scotty Doesn't Know" },
+            { f: "Se Beber Não Case 2", m: "The Candy Man" }, { f: "Project X", m: "Pursuit of Happiness" },
+            { f: "Vizinhos", m: "Get Low" }, { f: "Gente Grande", m: "Last Child" },
+            { f: "Ted 2", m: "Steppin' Out With My Baby" }, { f: "Superbad", m: "Are You Man Enough" },
+            { f: "Sing", m: "I'm Still Standing" }, { f: "Trolls", m: "Can't Stop the Feeling" },
+            { f: "Minions", m: "Happy" }, { f: "Meu Malvado Favorito", m: "Despicable Me" },
+            { f: "Megamente", m: "Bad to the Bone" }, { f: "Kung Fu Panda", m: "Kung Fu Fighting" },
+            { f: "Como Treinar seu Dragão", m: "Test Drive" }, { f: "Rio", m: "Real in Rio" },
+            { f: "Rio 2", m: "What is Love" }, { f: "A Era do Gelo", m: "Send Me On My Way" },
+            { f: "Madagascar 2", m: "Alex On The Spot" }, { f: "Happy Feet", m: "Bridge of Light" },
+            { f: "O Touro Ferdinando", m: "Home" }, { f: "Wonder Woman 1984", m: "Themyscira" },
+            { f: "Justice League", m: "Come Together" }, { f: "Man of Steel", m: "Flight" },
+            { f: "300", m: "Returns a King" }, { f: "Watchmen", m: "Desolation Row" },
+            { f: "Sucker Punch", m: "Sweet Dreams" }, { f: "Aquaman", m: "Everything I Need" },
+            { f: "Shazam!", m: "Don't Stop Me Now" }, { f: "Black Adam", m: "The Sound of Victory" }
+        ];
+
+        function getDayOfYear() {
+            const now = new Date();
+            const start = new Date(now.getFullYear(), 0, 0);
+            return Math.floor((now - start) / 86400000);
+        }
+
+        function render() {
+            const day = getDayOfYear();
+            const index = (day - 1) % trilhas.length; 
+            const hoje = trilhas[index];
+            const query = encodeURIComponent(hoje.f + " soundtrack " + hoje.m);
+
+            document.getElementById('cardLocal').innerHTML = `
+                <div class="card-dia">
+                    <div class="watermark">Q'SHOW</div>
+                    <div class="card-info">
+                        <h2>${hoje.f}</h2>
+                        <p><i class="fas fa-compact-disc"></i> ${hoje.m}</p>
+                        <a href="https://www.youtube.com/results?search_query=${query}" target="_blank" class="btn-play">
+                            <i class="fab fa-youtube"></i> OUVIR NO YOUTUBE
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+        window.onload = render;
+    </script>
+</body>
+</html>
